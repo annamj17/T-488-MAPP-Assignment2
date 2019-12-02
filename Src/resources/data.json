@@ -1,0 +1,19 @@
+{
+    "boards": [
+        {
+            "id": 1,
+            "name": "Anna",
+            "thumbnailPhoto": "https://s25743.pcdn.co/wp-content/uploads/2018/05/points-of-interest-where-to-go-and-places-to-visit-in-the-netherlands-featured-1400x735.jpg"
+        },
+        {
+            "id": 2,
+            "name": "Magga",
+            "thumbnailPhoto": "https://hbr.org/resources/images/article_assets/2019/06/Jun19_05_1040477378.jpg"
+        },
+        {
+            "id": 3,
+            "name": "Arnar",
+            "thumbnailPhoto": "https://images-na.ssl-images-amazon.com/images/I/61fq9A8jEGL._SL1500_.jpg"
+        }
+    ]
+}

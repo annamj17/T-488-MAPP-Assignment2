@@ -2,7 +2,7 @@ import React from 'react';
 import { FlatList, View } from 'react-native';
 import { ListItem } from 'react-native-elements';
 
-const RenderAllContacts = ({ contacts }) => {
+const RenderAllContacts = ({ contacts, onPress }) => {
 
     return (
         <View>
@@ -21,7 +21,7 @@ const RenderAllContacts = ({ contacts }) => {
                         }}
                         bottomDivider
                         chevron
-                        // onPress={() => onPress(id)}
+                        onPress={() => onPress(id)}
                         // onLongPress={() => onLongPress(index)}
                         // extraData={name}
                     />

@@ -26,7 +26,7 @@ class ContactView extends React.Component {
             <View style={styles.screens}>
                 <RenderAllContacts
                     contacts={this.state.data}
-                    onPress={id => navigate('ListView', { id: id })}
+                    onPress={id => navigate('ContactDetailView', { id: id })}
                 />
 
             </View>

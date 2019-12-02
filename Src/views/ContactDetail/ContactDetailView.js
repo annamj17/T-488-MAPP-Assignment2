@@ -9,7 +9,7 @@ class ContactDetailView extends React.Component {
         const { navigate } = this.props.navigation;
         return (
             <View style={styles.screens}>
-                <Text>Hallo</Text>
+                <Text>HALLO</Text>
             </View>
         );
     }

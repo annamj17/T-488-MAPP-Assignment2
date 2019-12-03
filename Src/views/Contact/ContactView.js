@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, TextInput, TouchableOpacity, Text } from 'react-native';
+import { StyleSheet, View, TextInput, TouchableOpacity, Text, Button } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import { getAllImages, addImage } from '../../services/services';
 import { getAllContacts } from '../../services/services';
@@ -7,10 +7,23 @@ import data from '../../resources/data';
 import RenderAllContacts from '../../components/RenderAllContacts/RendarAllContacts';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import styles from './styles';
+import AddModal from '../../components/AddModal/AddModal';
 
 const contacts = data.contacts;
 
 class ContactView extends React.Component {
+
+	static navigationOptions = ({ navigation }) => {
+		return {
+			headerRight: () => (
+				<Button
+					onPress={navigation.getParam('openModal')}
+					title="+"
+					color="#fff"
+				/>
+			),
+		};
+	};
 
 	constructor(props) {
 		super(props);
@@ -23,11 +36,18 @@ class ContactView extends React.Component {
 			phone: '',
 			imageUri: '',
 			imageFile: '',
+			isAddModalOpen: false,
+			modal: true
 		}
 	};
 
 	async componentDidMount() {
 		await this._fetchItems();
+		this.props.navigation.setParams({ openModal: this._openModal });
+	}
+
+	_openModal = () => {
+		this.setState({ modal: this.state.isAddModalOpen = true });
 	}
 
 	async _fetchItems() {
@@ -80,7 +100,7 @@ class ContactView extends React.Component {
 
 	render() {
 		const { navigate } = this.props.navigation;
-		const { search } = this.state;
+		const { search, isAddModalOpen } = this.state;
 		const filteredData = this.filterData();
 		return (
 			<View style={styles.screens}>
@@ -90,6 +110,12 @@ class ContactView extends React.Component {
 					extraData={filteredData}
 					onPress={id => navigate('ContactDetailView', { id: id })}
 					imageFile={this.state.contacts.imageFile}
+				/>
+				<AddModal
+					isOpen={isAddModalOpen}
+					closeModal={() => this.setState({ isAddModalOpen: false })}
+				// takePhoto={() => this.takePhoto()}
+				// selectFromCameraRoll={() => this.selectFromCameraRoll()} 
 				/>
 				<View style={styles.footer}>
 					<TextInput

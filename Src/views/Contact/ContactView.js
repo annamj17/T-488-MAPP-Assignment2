@@ -4,6 +4,7 @@ import { withNavigation } from 'react-navigation';
 import { getAllImages, addImage } from '../../services/services';
 import data from '../../resources/data';
 import RenderAllContacts from '../../components/RenderAllContacts/RendarAllContacts';
+import SearchBar from '../../components/SearchBar/SearchBar';
 
 const contacts = data.contacts;
 
@@ -14,7 +15,16 @@ class ContactView extends React.Component {
 		this.state = {
 			id: '',
 			data: contacts,
+			search: ''
 		}
+	};
+
+	filterData = () => {
+		const { search, data } = this.state;
+		let filteredData = data.filter(function (item) {
+			return item.name.includes(search);
+		});
+		return filteredData;
 	};
 
 	// async componentDidMount() {
@@ -26,12 +36,16 @@ class ContactView extends React.Component {
 	// 	console.log(contacts);
 	// 	this.setState({ contacts });
 	// }
+	
 	render() {
 		const { navigate } = this.props.navigation;
+		const { search } = this.state;
+		const filteredData = this.filterData();
 		return (
 			<View style={styles.screens}>
+				<SearchBar value={search} onSearch={search => this.setState({ search })} />
 				<RenderAllContacts
-					contacts={this.state.data}
+					contacts={filteredData}
 					onPress={id => navigate('ContactDetailView', { id: id })}
 				/>
 

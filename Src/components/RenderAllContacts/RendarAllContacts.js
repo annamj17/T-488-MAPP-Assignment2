@@ -1,13 +1,11 @@
 import React from 'react';
 import { FlatList, View } from 'react-native';
 import { ListItem } from 'react-native-elements';
-import SearchBar from '../SearchBar/SearchBar';
 
 const RenderAllContacts = ({ contacts, onPress }) => {
 
     return (
         <View>
-            <SearchBar />
             <FlatList 
                 data={contacts}
                 // extraData={extraData}

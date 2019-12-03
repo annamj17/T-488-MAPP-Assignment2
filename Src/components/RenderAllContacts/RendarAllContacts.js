@@ -6,24 +6,23 @@ const RenderAllContacts = ({ contacts, onPress }) => {
 
     return (
         <View>
-            <FlatList 
+            <FlatList
                 data={contacts}
                 // extraData={extraData}
                 renderItem={({ item: { id, name, imageUri }, index }) => (
-                    <ListItem 
+                    <ListItem
                         id={id}
                         title={name}
                         index={index}
                         leftAvatar={{
                             source: { uri: imageUri },
-                            size: "large",
+                            size: "medium",
                             containerStyle: { marginTop: 5 }
                         }}
                         bottomDivider
                         chevron
                         onPress={() => onPress(id)}
-                        // onLongPress={() => onLongPress(index)}
-                        // extraData={name}
+                    // extraData={name}
                     />
                 )}
                 keyExtractor={item => item.id.toString()}

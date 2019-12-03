@@ -22,7 +22,8 @@ class ContactDetailView extends React.Component {
 				/>
 			),
 		};
-	};
+    };
+    
     constructor(props) {
         super(props);
         this.state = {
@@ -30,7 +31,7 @@ class ContactDetailView extends React.Component {
             isAddModalOpen: false,
 			modal: true
         }
-    }
+    };
 
     async componentDidMount() {
         const { navigation } = this.props;
@@ -44,7 +45,7 @@ class ContactDetailView extends React.Component {
 
     _openModal = () => {
 		this.setState({ modal: this.state.isAddModalOpen=true });
-	}
+	};
 
     render() {
         const { navigate } = this.props.navigation;
@@ -62,7 +63,7 @@ class ContactDetailView extends React.Component {
 				/>
             </View>
         );
-    }
+    };
 }
 
 const styles = StyleSheet.create({

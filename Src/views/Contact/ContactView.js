@@ -1,11 +1,11 @@
 import React from 'react';
-import { StyleSheet, View, TouchableOpacity, Button } from 'react-native';
-import { withNavigation } from 'react-navigation';
+import { StyleSheet, View, Button } from 'react-native';
+
 import data from '../../resources/data';
 import RenderAllContacts from '../../components/RenderAllContacts/RendarAllContacts';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import AddModal from '../../components/AddModal/AddModal';
-import { Ionicons } from '@expo/vector-icons';
+// import { getAllContacts, addContact } from '../../services/fileService';
 
 const contacts = data.contacts;
 
@@ -13,10 +13,9 @@ class ContactView extends React.Component {
 
 	static navigationOptions = ({ navigation }) => {
 		return {
-			// headerTitle: () => <LogoTitle />,
 			headerRight: () => (
 				<Button
-					onPress={ navigation.getParam('openModal')}
+					onPress={navigation.getParam('openModal')}
 					title="+"
 					color="#fff"
 				/>
@@ -32,16 +31,25 @@ class ContactView extends React.Component {
 			search: '',
 			isAddModalOpen: false,
 			modal: true
+			// contacts: []
+			// loadingContacts: true,
 		}
 	};
 
 	componentDidMount() {
+		// this._fetchItems;
 		this.props.navigation.setParams({ openModal: this._openModal });
 	}
 
 	_openModal = () => {
-		this.setState({ modal: this.state.isAddModalOpen=true });
+		this.setState({ modal: this.state.isAddModalOpen = true });
 	}
+
+	// async _fetchItems() {
+	// 	this.setState({ loadingContacts: true });
+	// 	const contacts = await getAllContacts();
+	// 	this.setState({ loadingImages: false, contacts })
+	// }
 
 	filterData = () => {
 		const { search, data } = this.state;
@@ -51,16 +59,6 @@ class ContactView extends React.Component {
 		});
 		return filteredData;
 	};
-
-	// async componentDidMount() {
-	// 	await this._fetchItems();
-	// }
-
-	// async _fetchItems() {
-	// 	const contacts = await getAllImages();
-	// 	console.log(contacts);
-	// 	this.setState({ contacts });
-	// }
 
 	render() {
 		const { navigate } = this.props.navigation;

@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
     header: {
-        backgroundColor: "gray",
+        backgroundColor: "black",
         //backgroundColor: "#00BFFF",
         height: 200,
     },
@@ -17,11 +17,6 @@ export default StyleSheet.create({
         position: 'absolute',
         marginTop: 130
     },
-    name: {
-        fontSize: 22,
-        color: "#FFFFFF",
-        fontWeight: '600',
-    },
     body: {
         marginTop: 40,
     },
@@ -31,32 +26,14 @@ export default StyleSheet.create({
         padding: 30,
     },
     name: {
-        fontSize: 28,
+        fontSize: 35,
         color: "#696969",
-        fontWeight: "600"
+        fontWeight: "600",
+        textDecorationLine: "underline"
     },
     info: {
-        fontSize: 16,
-        color: "gray",
-        //color: "#00BFFF",
-        marginTop: 10
-    },
-    description: {
-        fontSize: 16,
-        color: "#696969",
-        marginTop: 10,
-        textAlign: 'center'
-    },
-    buttonContainer: {
-        marginTop: 10,
-        height: 45,
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginBottom: 20,
-        width: 250,
-        borderRadius: 30,
-        backgroundColor: "gray",
-        //backgroundColor: "#00BFFF",
-    },
+        fontSize: 19,
+        color: "black",
+        marginTop: 30
+    }
 });

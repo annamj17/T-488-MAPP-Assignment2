@@ -1,33 +1,26 @@
 import React from 'react';
-import { FlatList, View } from 'react-native';
+import { Text, Image, TouchableOpacity, FlatList, View, List } from 'react-native';
 import { ListItem } from 'react-native-elements';
+import { Avatar } from 'react-native-elements';
+import { getContentUriAsync } from 'expo-file-system';
+import styles from './styles';
 
-const RenderContactDetail = ({ contacts }) => {
-
+const RenderContactDetail = ({ contact }) => {
+    console.log(contact);
     return (
-        <View>
-            {/* <FlatList
-                data={contacts}
-                // extraData={extraData}
-                renderItem={({ item: { id, name, imageUri }, index }) => (
-                    <ListItem
-                        id={id}
-                        title={name}
-                        index={index}
-                        leftAvatar={{
-                            source: { uri: imageUri },
-                            size: "large",
-                            containerStyle: { marginTop: 5 }
-                        }}
-                        bottomDivider
-                        chevron
-                        // onPress={() => onPress(id)}
-                    // onLongPress={() => onLongPress(index)}
-                    // extraData={name}
-                    />
-                )}
-            keyExtractor={item => item.id.toString()}
-            /> */}
+        
+        <View style={styles.container}>
+            <View style={styles.header}></View>
+            <Image style={styles.avatar} source={{ uri: contact.imageFile }} />
+            <View style={styles.body}>
+            <View style={styles.bodyContent}>
+            </View>
+            </View>
+            <Text style={styles.name}> {contact.name} </Text>
+            <Text style={styles.info}> {contact.phone} </Text>
+            {/* <TouchableOpacity style={styles.buttonContainer}>
+                <Text>Edit</Text>
+            </TouchableOpacity> */}
         </View>
     );
 }

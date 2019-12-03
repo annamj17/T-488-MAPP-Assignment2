@@ -1,5 +1,6 @@
 import * as FileSystem from 'expo-file-system';
 const imageDirectory = `${FileSystem.documentDirectory}contacts`;
+import data from '../resources/data'
 
 const onException = (cb, errorHandler) => {
 	try {
@@ -10,6 +11,21 @@ const onException = (cb, errorHandler) => {
 		}
 		console.error(err);
 	}
+}
+
+export const newContact = async () => {
+	let fileUri = FileSystem.documentDirectory + "text.txt";
+	return await FileSystem.writeAsStringAsync(fileUri, "Hello World", { encoding: FileSystem.EncodingType.UTF8 });
+}
+
+export const getAllContacts = async () => {
+	//return await data;
+	return contacts = [{
+		"name": "Contact name", //this.state.name,
+		"phone": "(687) 33465778",// this.state.description,
+		"imageUri": "http://dummyimage.com/181x213.png/ff4444/ffffff",
+		"imageFile": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAQAAAC1+jfqAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAB/SURBVCjPpVFBDkBADJyKJ3mEk1d4goPPeYDgN2QtidFdFidZ0UnbZDszbbJCvEeCv4TUlVr3EKvCKmYYhau9AMIYh4oLFq8N6lYCIc6h5PzYbLyTVc8p+oaCQWu81mL8eEPzYNEnsWnP5SQA2fnsBkcSw+1AdJfqGN4hv39zB9EXSdykB4lxAAAAAElFTkSuQmCC"
+	}]
 }
 
 export const cleanDirectory = async () => {

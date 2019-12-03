@@ -13,7 +13,7 @@ const StackNavigator = createStackNavigator({
         headerTitle: "Contacts",
         headerStyle: {
             height: 70,
-            backgroundColor: 'gray',
+            backgroundColor: 'black',
         },
         headerTitleStyle: {
             fontWeight: 'bold',

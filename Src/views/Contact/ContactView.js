@@ -5,7 +5,7 @@ import { getAllImages, addImage } from '../../services/services';
 import data from '../../resources/data';
 import RenderAllContacts from '../../components/RenderAllContacts/RendarAllContacts';
 
-const contacts = data.boards;
+const contacts = data.contacts;
 
 class ContactView extends React.Component {
 
@@ -14,27 +14,25 @@ class ContactView extends React.Component {
 		this.state = {
 			id: '',
 			data: contacts,
-			contacts: [],
 		}
 	};
 
-	async componentDidMount() {
-		await this._fetchItems();
-	}
+	// async componentDidMount() {
+	// 	await this._fetchItems();
+	// }
 
-	async _fetchItems() {
-		const contacts = await getAllImages();
-		console.log(contacts);
-		this.setState({ contacts });
-	}
+	// async _fetchItems() {
+	// 	const contacts = await getAllImages();
+	// 	console.log(contacts);
+	// 	this.setState({ contacts });
+	// }
 	render() {
 		const { navigate } = this.props.navigation;
 		return (
 			<View style={styles.screens}>
 				<RenderAllContacts
-					contacts={this.state.contacts}
+					contacts={this.state.data}
 					onPress={id => navigate('ContactDetailView', { id: id })}
-
 				/>
 
 			</View>

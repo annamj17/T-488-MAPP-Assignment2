@@ -9,8 +9,9 @@ const RenderAllContacts = ({ contacts, onPress, onLongPress, extraData }) => {
 			<FlatList
 				data={contacts}
 				extraData={extraData}
-				renderItem={({ item: { name, phone, imageUri, imageFile }, index }) => (
+				renderItem={({ item: { id, name, phone, imageUri, imageFile }, index }) => (
 					<ListItem
+						id={id}
 						title={name}
 						index={index}
 						leftAvatar={{
@@ -29,7 +30,7 @@ const RenderAllContacts = ({ contacts, onPress, onLongPress, extraData }) => {
 						{console.log(imageFile)}
 					</ListItem>
 				)}
-				keyExtractor={(item, index) => index.toString()}
+				keyExtractor={item => item.id}
 			/>
 		</View>
 	);

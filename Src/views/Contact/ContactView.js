@@ -15,6 +15,7 @@ class ContactView extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			id: '',
 			data: contacts,
 			search: '',
 			contacts: [],
@@ -55,6 +56,7 @@ class ContactView extends React.Component {
 		var newContact = {};
 		if (this.state.name && this.state.phone) {
 			newContact = {
+				"id": Math.max(...taskData.map(task => task.id)) + 1,
 				"name": this.state.name,
 				"phone": this.state.phone,
 				"imageUri": 'http://dummyimage.com/181x213.png/ff4444/ffffff',
@@ -63,6 +65,7 @@ class ContactView extends React.Component {
 		}
 		else {
 			newContact = {
+				"id": Math.max(...taskData.map(task => task.id)) + 1,
 				"name": "NewName",//this.state.name,
 				"phone": "(628) 3582765",//this.state.phone,
 				"imageUri": 'http://dummyimage.com/181x213.png/ff4444/ffffff',

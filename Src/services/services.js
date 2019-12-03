@@ -21,6 +21,7 @@ export const newContact = async () => {
 export const getAllContacts = async () => {
 	//return await data;
 	return contacts = [{
+		"id": "1",
 		"name": "Contact name", //this.state.name,
 		"phone": "(687) 33465778",// this.state.description,
 		"imageUri": "http://dummyimage.com/181x213.png/ff4444/ffffff",

@@ -4,6 +4,7 @@ import { Avatar } from 'react-native-elements';
 import { withNavigation } from 'react-navigation';
 
 import data from '../../resources/data';
+import RenderContactDetail from '../../components/RenderContactDetail/RenderContactDetail';
 
 const contacts = data.contacts;
 
@@ -12,22 +13,25 @@ class ContactDetailView extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            contact: [],
+            contact: {},
         }
     }
 
     async componentDidMount() {
         const { navigation } = this.props;
-        const boardsIdent = navigation.getParam('id', 0);
+        const contactIdent = navigation.getParam('id', 0);
         this.setState({
-            contact: console.log(contacts.filter(c => c.id === boardsIdent))
+            contact: contacts.find(c => c.id === contactIdent)
+            //contact: console.log(contacts.filter(c => c.id === contactIdent))
         });
     };
 
     render() {
         return (
             <View style={styles.screens}>
-                <Text>HALLO</Text>
+                <RenderContactDetail
+                    contact={this.state.contact}
+                />
             </View>
         );
     }

@@ -28,7 +28,7 @@ class ContactView extends React.Component {
 			data: [],
 			search: '',
 			isAddModalOpen: false,
-			modal: true
+			modal: true,
 		}
 	};
 
@@ -38,10 +38,10 @@ class ContactView extends React.Component {
 	}
 
 	async _fetchItems() {
-		const tempObj = { name: "nokkvi", phonenumber: "7734691", image: "" };
-		const tempObjM = { name: "magga", phonenumber: "8237163", image: "" }
-		await addContact(tempObj);
-		await addContact(tempObjM);
+		// const tempObj = { name: "nokkvi", phonenumber: "7734691", image: "sd" };
+		// const tempObjM = { name: "magga", phonenumber: "8237163", image: "ss" }
+		// await addContact(tempObj);
+		// await addContact(tempObjM);
 		const contactData = await getAllContacts();
 		contactData.sort((a, b) => (a.name < b.name) ? -1 : 1);
 		this.setState({ data: contactData })
@@ -55,7 +55,7 @@ class ContactView extends React.Component {
 	filterData = () => {
 		const { search, data } = this.state;
 		data.sort((a, b) => (a.name < b.name) ? -1 : 1);
-		let filteredData = data.filter(function (item) {
+		let filteredData = data.filter(function(item) {
 			return item.name.toLowerCase().includes(search.toLowerCase());
 		});
 		return filteredData;
@@ -67,8 +67,8 @@ class ContactView extends React.Component {
 	}
 
 	async selectFromCameraRoll() {
-			const photo = await selectFromCameraRoll();
-			if (photo.length > 0) { await this.addImage(photo); }
+		const photo = await selectFromCameraRoll();
+		if (photo.length > 0) { await this.addImage(photo); }
 	}
 
 	async addImage(image) {
@@ -76,7 +76,7 @@ class ContactView extends React.Component {
 
 		const newImage = await addImage(image);
 		const { images } = this.state;
-		this.setState({ images: [ ...images, newImage ], loadingImages: false, isAddModalOpen: false });
+		this.setState({ images: [...images, newImage], loadingImages: false, isAddModalOpen: false });
 	}
 
 	render() {
@@ -88,13 +88,14 @@ class ContactView extends React.Component {
 				<SearchBar value={search} onSearch={search => this.setState({ search })} />
 				<RenderAllContacts
 					contacts={filteredData}
+					extraData={filteredData}
 					onPress={name => navigate('ContactDetailView', { name: name })}
 				/>
 				<AddModal
 					isOpen={isAddModalOpen}
 					closeModal={() => this.setState({ isAddModalOpen: false })}
-				  takePhoto={() => this.takePhoto()}
-				  selectFromCameraRoll={() => this.selectFromCameraRoll()} 
+					takePhoto={() => this.takePhoto()}
+					selectFromCameraRoll={() => this.selectFromCameraRoll()}
 				/>
 			</View>
 		);

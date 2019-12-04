@@ -16,7 +16,7 @@ export const writeToFile = async (file, newLocation) => {
 	onException(() => FileSystem.writeAsStringAsync(newLocation, file));
 };
 
-// So filname is a valid string
+// So filename is a valid string
 function makeValidStringForFileName(str) {
 	const validString = str.replace(/\s/g, '')
 	return validString.replace(/[^A-Za-z0-9\s-]/g, '');

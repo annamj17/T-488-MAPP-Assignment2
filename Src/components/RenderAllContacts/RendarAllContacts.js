@@ -21,7 +21,6 @@ const RenderAllContacts = ({ contacts, onPress }) => {
 						bottomDivider
 						chevron
 						onPress={() => onPress(name)}
-					// extraData={name}
 					/>
 				)}
 				keyExtractor={item => item.name.toString()}

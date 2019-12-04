@@ -14,7 +14,7 @@ const RenderContactDetail = ({ contact }) => {
                 </View>
             </View>
             <Text style={styles.name}> {contact.name} </Text>
-            <Text style={styles.info}> {contact.phonenumber} </Text>
+            <Text style={styles.info}> {contact.phone} </Text>
         </View>
     );
 }

@@ -1,9 +1,9 @@
 import React from 'react';
 import { TextInput, Text, TouchableOpacity } from 'react-native';
 import Button from 'react-native-button';
+
 import Modal from '../Modal/Modal';
 import styles from './styles';
-import { Entypo } from '@expo/vector-icons';
 import { addContact } from '../../services/services';
 import { colors } from 'react-native-elements';
 
@@ -30,7 +30,7 @@ class AddModal extends React.Component {
 	}
 
 	render() {
-		const { isOpen, closeModal, updateList, addContact, didChange, takePhoto, selectFromCameraRoll } = this.props;
+		const { isOpen, closeModal, updateList, takePhoto, selectFromCameraRoll } = this.props;
 		return (
 			<Modal
 				style={styles.myModal}
@@ -55,8 +55,6 @@ class AddModal extends React.Component {
 					placeholder="New contact's name"
 					placeholderTextColor='gray'
 					underlineColorAndroid='transparent'>
-					{/* onChangeText={(name) => this.setState({ name })}
-                    value={this.state.name} */}
 				</TextInput>
 				<TextInput
 					style={styles.textInput}
@@ -66,14 +64,9 @@ class AddModal extends React.Component {
 					placeholder="New phone number"
 					placeholderTextColor='gray'
 					underlineColorAndroid='transparent'>
-					{/* onChangeText={(phoneNumber) => this.setState({ phoneNumber })}
-                    value={this.state.phoneNumber} */}
-
 				</TextInput>
 				<Button style={styles.submitButton}
-					//onPress={() => { console.log("Button pressed") 
-					onPress={this.validateAndPassOn.bind(this)}
-				>
+					onPress={this.validateAndPassOn.bind(this)}>
 					Save
                 </Button>
 			</Modal>

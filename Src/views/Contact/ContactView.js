@@ -35,7 +35,7 @@ class ContactView extends React.Component {
 	async componentDidMount() {
 		await this._fetchItems();
 		this.props.navigation.setParams({ openModal: this._openModal });
-	}
+	};
 
 	async _fetchItems() {
 		// const tempObj = { name: "nokkvi", phonenumber: "7734691", image: "sd" };
@@ -45,12 +45,11 @@ class ContactView extends React.Component {
 		const contactData = await getAllContacts();
 		contactData.sort((a, b) => (a.name < b.name) ? -1 : 1);
 		this.setState({ data: contactData })
-	}
-
+	};
 
 	_openModal = () => {
 		this.setState({ modal: this.state.isAddModalOpen = true });
-	}
+	};
 
 	filterData = () => {
 		const { search, data } = this.state;
@@ -64,12 +63,12 @@ class ContactView extends React.Component {
 	async takePhoto() {
 		const photo = await takePhoto();
 		if (photo.length > 0) { await this.addImage(photo); }
-	}
+	};
 
 	async selectFromCameraRoll() {
 		const photo = await selectFromCameraRoll();
 		if (photo.length > 0) { await this.addImage(photo); }
-	}
+	};
 
 	async addImage(image) {
 		this.setState({ loadingImages: true });
@@ -77,12 +76,12 @@ class ContactView extends React.Component {
 		const newImage = await addImage(image);
 		const { images } = this.state;
 		this.setState({ images: [...images, newImage], loadingImages: false, isAddModalOpen: false });
-	}
+	};
 
 	async modalClosed() {
 		this.setState({ isAddModalOpen: false })
 		this._fetchItems();
-	}
+	};
 
 	render() {
 		const { navigate } = this.props.navigation;
@@ -105,7 +104,7 @@ class ContactView extends React.Component {
 				/>
 			</View>
 		);
-	}
+	};
 }
 
 const styles = StyleSheet.create({

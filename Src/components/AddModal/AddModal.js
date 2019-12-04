@@ -1,12 +1,13 @@
 import React from 'react';
-import { TextInput, Text } from 'react-native';
+import { TextInput, Text, TouchableOpacity } from 'react-native';
 import Button from 'react-native-button';
 import Modal from '../Modal/Modal';
 import styles from './styles';
+import { Entypo } from '@expo/vector-icons';
 
 class AddModal extends React.Component {
     render() {
-        const { isOpen, closeModal, addContact } = this.props;
+        const { isOpen, closeModal, addContact, takePhoto, selectFromCameraRoll } = this.props;
         return (
             <Modal
                 style={styles.myModal}
@@ -39,6 +40,14 @@ class AddModal extends React.Component {
                     {/* onChangeText={(phoneNumber) => this.setState({ phoneNumber })}
                     value={this.state.phoneNumber} */}
                 </TextInput>
+                <TouchableOpacity
+                    onPress={ () => takePhoto() }>
+                    <Entypo style={ styles.icon } name="camera" />
+                </TouchableOpacity>
+                <TouchableOpacity
+                    onPress={ () => selectFromCameraRoll() }>
+                    <Entypo style={ styles.icon } name="image" />
+                </TouchableOpacity>    
                 <Button style={styles.submitButton}
                     onPress={() => { console.log("Button pressed") }}>
                     Save

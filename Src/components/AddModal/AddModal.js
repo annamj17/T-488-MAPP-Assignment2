@@ -14,29 +14,29 @@ class AddModal extends React.Component {
 			name: '',
 			phone: '',
 			imageUri: '',
-			closeTheModal: '',
 		}
 	}
 
 	async validateAndPassOn() {
-		if (this.state.name && this.state.phone) {
-			newContact = {
-				"name": this.state.name,
-				"phone": this.state.phone,
-			}
-			console.log("newContact", newContact);
-			await addContact(newContact);
-			this.setState({ closeModal: true })
+		//if (this.state.name && this.state.phone) {
+		newContact = {
+			"name": this.state.name,
+			"phone": this.state.phone,
 		}
+		console.log("newContact", newContact);
+		await addContact(newContact);
+		this.setState({ closeModal: true, updateList: true, name: '', phone: '' })
+		//}
 	}
 
 	render() {
-		const { isOpen, closeModal, addContact, didChange, takePhoto, selectFromCameraRoll } = this.props;
+		const { isOpen, closeModal, updateList, addContact, didChange, takePhoto, selectFromCameraRoll } = this.props;
 		return (
 			<Modal
 				style={styles.myModal}
 				isOpen={isOpen}
-				closeModal={closeModal}>
+				closeModal={closeModal}
+				updateList={updateList}>
 				<Text style={styles.textStyle}>
 					Create New Contact
                 </Text>
@@ -62,6 +62,7 @@ class AddModal extends React.Component {
 					style={styles.textInput}
 					style={styles.textInput}
 					onChangeText={(phone) => this.setState({ phone })}
+					value={this.state.phone}
 					placeholder="New phone number"
 					placeholderTextColor='gray'
 					underlineColorAndroid='transparent'>
@@ -71,7 +72,7 @@ class AddModal extends React.Component {
 				</TextInput>
 				<Button style={styles.submitButton}
 					//onPress={() => { console.log("Button pressed") 
-					onPress={this.validateAndPassOn.bind(this), closeModal}
+					onPress={this.validateAndPassOn.bind(this)}
 				>
 					Save
                 </Button>

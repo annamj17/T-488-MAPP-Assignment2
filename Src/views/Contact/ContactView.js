@@ -79,7 +79,10 @@ class ContactView extends React.Component {
 		this.setState({ images: [...images, newImage], loadingImages: false, isAddModalOpen: false });
 	}
 
-
+	async modalClosed() {
+		this.setState({ isAddModalOpen: false })
+		this._fetchItems();
+	}
 
 	render() {
 		const { navigate } = this.props.navigation;
@@ -95,10 +98,10 @@ class ContactView extends React.Component {
 				/>
 				<AddModal
 					isOpen={isAddModalOpen}
-					closeModal={() => this.setState({ isAddModalOpen: false })}
+					closeModal={() => this.modalClosed()}
 					takePhoto={() => this.takePhoto()}
 					selectFromCameraRoll={() => this.selectFromCameraRoll()}
-
+					updateList={() => this.componentDidMount()}
 				/>
 			</View>
 		);

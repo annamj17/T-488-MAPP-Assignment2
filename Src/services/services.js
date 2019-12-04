@@ -25,14 +25,12 @@ function makeValidStringForFileName(str) {
 export const addContact = async contactLocation => {
 	const fileName = makeValidStringForFileName(contactLocation.name);
 	const contJson = JSON.stringify(contactLocation);
-	await onException(() => writeToFile(contJson, `${contactDirectory}/${fileName}`));
+	await onException(() => writeToFile(contJson, `${contactsDirectory}/${fileName}`));
 };
 
 // Read the entire contents of a file as a string. Binary will be returned in raw format, you will need to append data:image/png;base64, to use it as Base64.
 export const loadContact = async fileName => {
-	return await onException(() => FileSystem.readAsStringAsync(`${contactsDirectory}/${fileName}`, {
-		encoding: FileSystem.EncodingType.Base64
-	}));
+	return await onException(() => FileSystem.readAsStringAsync(`${contactsDirectory}/${fileName}`));
 };
 
 // Create a new empty directory. 

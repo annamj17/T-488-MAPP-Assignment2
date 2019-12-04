@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextInput, Text, Alert } from 'react-native';
+import { TextInput, Text } from 'react-native';
 import Button from 'react-native-button';
 import Modal from '../Modal/Modal';
 import styles from './styles';

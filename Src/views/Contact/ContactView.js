@@ -1,13 +1,10 @@
 import React from 'react';
 import { StyleSheet, View, Button } from 'react-native';
 
-import data from '../../resources/data';
 import RenderAllContacts from '../../components/RenderAllContacts/RendarAllContacts';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import AddModal from '../../components/AddModal/AddModal';
-// import { getAllContacts, addContact } from '../../services/fileService';
-
-const contacts = data.contacts;
+import { getAllContacts, addContact } from '../../services/services';
 
 class ContactView extends React.Component {
 
@@ -26,30 +23,33 @@ class ContactView extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			id: '',
-			data: contacts,
+			name: '',
+			data: [],
 			search: '',
 			isAddModalOpen: false,
 			modal: true
-			// contacts: []
-			// loadingContacts: true,
 		}
 	};
 
-	componentDidMount() {
-		// this._fetchItems;
+	async componentDidMount() {
+		await this._fetchItems();
 		this.props.navigation.setParams({ openModal: this._openModal });
 	}
+
+	async _fetchItems() {
+		const tempObj = { name: "nokkvi", phonenumber: "7734691", image: "" };
+		const tempObjM = { name: "magga", phonenumber: "8237163", image: "" }
+		await addContact(tempObj);
+		await addContact(tempObjM);
+		const contactData = await getAllContacts();
+		contactData.sort((a, b) => (a.name < b.name) ? -1 : 1);
+		this.setState({ data: contactData })
+	}
+
 
 	_openModal = () => {
 		this.setState({ modal: this.state.isAddModalOpen = true });
 	}
-
-	// async _fetchItems() {
-	// 	this.setState({ loadingContacts: true });
-	// 	const contacts = await getAllContacts();
-	// 	this.setState({ loadingImages: false, contacts })
-	// }
 
 	filterData = () => {
 		const { search, data } = this.state;
@@ -69,7 +69,7 @@ class ContactView extends React.Component {
 				<SearchBar value={search} onSearch={search => this.setState({ search })} />
 				<RenderAllContacts
 					contacts={filteredData}
-					onPress={id => navigate('ContactDetailView', { id: id })}
+					onPress={name => navigate('ContactDetailView', { name: name })}
 				/>
 				<AddModal
 					isOpen={isAddModalOpen}

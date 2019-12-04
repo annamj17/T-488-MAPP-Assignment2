@@ -9,23 +9,22 @@ const RenderAllContacts = ({ contacts, onPress }) => {
             <FlatList
                 data={contacts}
                 // extraData={extraData}
-                renderItem={({ item: { id, name, imageUri }, index }) => (
+                renderItem={({ item: { name, imageUri }, index }) => (
                     <ListItem
-                        id={id}
                         title={name}
                         index={index}
                         leftAvatar={{
                             source: { uri: imageUri },
-                            size: "medium",
+                            size: "large",
                             containerStyle: { marginTop: 5 }
                         }}
                         bottomDivider
                         chevron
-                        onPress={() => onPress(id)}
+                        onPress={() => onPress(name)}
                     // extraData={name}
                     />
                 )}
-                keyExtractor={item => item.id.toString()}
+                keyExtractor={item => item.name.toString()}
             />
         </View>
     );

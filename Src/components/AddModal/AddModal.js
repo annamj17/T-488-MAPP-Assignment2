@@ -5,6 +5,7 @@ import Modal from '../Modal/Modal';
 import styles from './styles';
 import { Entypo } from '@expo/vector-icons';
 import { addContact } from '../../services/services';
+import { colors } from 'react-native-elements';
 
 class AddModal extends React.Component {
 	constructor(props) {
@@ -13,43 +14,40 @@ class AddModal extends React.Component {
 			name: '',
 			phone: '',
 			imageUri: '',
-			isAddModalOpen: true,
 		}
 	}
 
 	async validateAndPassOn() {
-		if (this.state.name && this.state.phone && this.state.imageUri) {
-			newContact = {
-				"name": this.state.name,
-				"phone": this.state.phone,
-				"imageUri": this.state.imageUri
-			}
-			console.log("newContact", newContact);
-			await addContact(newContact);
+		//if (this.state.name && this.state.phone) {
+		newContact = {
+			"name": this.state.name,
+			"phone": this.state.phone,
 		}
+		console.log("newContact", newContact);
+		await addContact(newContact);
+		this.setState({ closeModal: true, updateList: true, name: '', phone: '' })
+		//}
 	}
 
-
 	render() {
-		const { isOpen, closeModal, addContact, didChange, takePhoto, selectFromCameraRoll } = this.props;
+		const { isOpen, closeModal, updateList, addContact, didChange, takePhoto, selectFromCameraRoll } = this.props;
 		return (
 			<Modal
 				style={styles.myModal}
 				isOpen={isOpen}
-				closeModal={closeModal}>
+				closeModal={closeModal}
+				updateList={updateList}>
 				<Text style={styles.textStyle}>
 					Create New Contact
                 </Text>
-				<TextInput
-					style={styles.textInput}
-					placeholder="Image URL"
-					onChangeText={(imageUri) => this.setState({ imageUri })}
-					value={this.state.imageUri}
-					placeholderTextColor='gray'
-					underlineColorAndroid='transparent'>
-					{/* onChangeText={(phoneNumber) => this.setState({ phoneNumber })}
-                    value={this.state.phoneNumber} */}
-				</TextInput>
+				{/* <TouchableOpacity
+					onPress={() => takePhoto()}>
+					<Entypo style={styles.icon} name="camera" />
+				</TouchableOpacity>
+				<TouchableOpacity
+					onPress={() => selectFromCameraRoll()}>
+					<Entypo style={styles.icon} name="image" />
+				</TouchableOpacity> */}
 				<TextInput
 					style={styles.textInput}
 					onChangeText={(name) => this.setState({ name })}
@@ -64,6 +62,7 @@ class AddModal extends React.Component {
 					style={styles.textInput}
 					style={styles.textInput}
 					onChangeText={(phone) => this.setState({ phone })}
+					value={this.state.phone}
 					placeholder="New phone number"
 					placeholderTextColor='gray'
 					underlineColorAndroid='transparent'>
@@ -71,14 +70,6 @@ class AddModal extends React.Component {
                     value={this.state.phoneNumber} */}
 
 				</TextInput>
-				<TouchableOpacity
-					onPress={() => takePhoto()}>
-					<Entypo style={styles.icon} name="camera" />
-				</TouchableOpacity>
-				<TouchableOpacity
-					onPress={() => selectFromCameraRoll()}>
-					<Entypo style={styles.icon} name="image" />
-				</TouchableOpacity>
 				<Button style={styles.submitButton}
 					//onPress={() => { console.log("Button pressed") 
 					onPress={this.validateAndPassOn.bind(this)}

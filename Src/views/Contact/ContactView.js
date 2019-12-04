@@ -79,6 +79,8 @@ class ContactView extends React.Component {
 		this.setState({ images: [...images, newImage], loadingImages: false, isAddModalOpen: false });
 	}
 
+
+
 	render() {
 		const { navigate } = this.props.navigation;
 		const { search, isAddModalOpen } = this.state;
@@ -88,7 +90,7 @@ class ContactView extends React.Component {
 				<SearchBar value={search} onSearch={search => this.setState({ search })} />
 				<RenderAllContacts
 					contacts={filteredData}
-					extraData={filteredData}
+					extraData={isAddModalOpen}
 					onPress={name => navigate('ContactDetailView', { name: name })}
 				/>
 				<AddModal
@@ -96,6 +98,7 @@ class ContactView extends React.Component {
 					closeModal={() => this.setState({ isAddModalOpen: false })}
 					takePhoto={() => this.takePhoto()}
 					selectFromCameraRoll={() => this.selectFromCameraRoll()}
+
 				/>
 			</View>
 		);

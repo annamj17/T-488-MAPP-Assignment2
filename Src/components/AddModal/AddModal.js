@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, TextInput, Text, Image, TouchableOpacity } from 'react-native';
 import Button from 'react-native-button';
+import { Entypo } from '@expo/vector-icons';
 
 import Modal from '../Modal/Modal';
 import styles from './styles';
@@ -48,7 +49,7 @@ class AddModal extends React.Component {
 		const { imageUri, name, phone } = this.state;
 		const isEnabled = name.length > 0 && phone.length > 0 && imageUri.length > 0;
 
-
+		return (
 			<Modal
 				isOpen={isOpen}
 				closeModal={closeModal}
@@ -101,7 +102,7 @@ class AddModal extends React.Component {
 					Save
 					</Button>
 			</Modal >
-		);
+		)
 	}
 }
 

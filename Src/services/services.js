@@ -16,21 +16,24 @@ export const writeToFile = async (file, newLocation) => {
 	onException(() => FileSystem.writeAsStringAsync(newLocation, file));
 };
 export const removeContact = async fileName => {
-	console.log("removeContact>Dirname ", `${contactsDirectory}/${fileName}`);
+	console.log("removeContact>FileName: ", fileName);
+	console.log("removeContact>Dirname: ", `${contactsDirectory}/${fileName}`);
 	return onException(() => FileSystem.deleteAsync(`${contactsDirectory}/${fileName}`, { idempotent: true }));
 };
 
 // So filename is a valid string
 export function makeValidStringForFileName(str) {
+	console.log("makeValidStringForFileName>str: ", str);
 	const validString = str.replace(/\s/g, '')
 	return validString.replace(/[^A-Za-z0-9\s-]/g, '');
 };
 
 export const addContact = async contactLocation => {
+	console.log("===================================================editContact");
 	const fileName = makeValidStringForFileName(contactLocation.name);
-	console.log("addContact>fileName", fileName);
+	console.log("addContact>fileName: ", fileName);
 	const contJson = JSON.stringify(contactLocation);
-	console.log("addContact>contJson", contJson);
+	console.log("addContact>contJson: ", contJson);
 	await onException(() => writeToFile(contJson, `${contactsDirectory}/${fileName}`));
 };
 

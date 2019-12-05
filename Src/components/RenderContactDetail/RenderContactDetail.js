@@ -23,7 +23,6 @@ const RenderContactDetail = ({ contact }) => {
 			</TouchableOpacity>
 		</View>
 	);
-
 }
 
 export default RenderContactDetail;

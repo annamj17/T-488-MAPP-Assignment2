@@ -43,60 +43,60 @@ class AddModal extends React.Component {
 
 	render() {
 		const { isOpen, closeModal, updateList, addContact, didChange } = this.props;
-		const { imageUri } = this.state;
-
+		const { imageUri, name, phone } = this.state;
+		const isEnabled = name.length > 0 && phone.length > 0 && imageUri.length > 0;
 		return (
 
 			<Modal
 				isOpen={isOpen}
 				closeModal={closeModal}
 				updateList={updateList} >
-				< View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-					<Text style={styles.textStyle}>
-						Create New Contact
+				<Text style={styles.textStyle}>
+					Create New Contact
 					</Text>
-					<View>
-						{
-							imageUri
-								?
-								<Image source={{ uri: imageUri }} style={{ width: 50, height: 50 }} />
-								:
-								<View>
-									<TouchableOpacity
-										onPress={() => this.takePhoto()}>
-										<Entypo style={styles.icon} name="camera" />
-									</TouchableOpacity>
-									<TouchableOpacity
-										onPress={() => this.selectFromCameraRoll()}>
-										<Entypo style={styles.icon} name="image" />
-									</TouchableOpacity>
-								</View>
-						}
-					</View>
-					<TextInput
-						style={styles.textInput}
-						onChangeText={(name) => this.setState({ name })}
-						value={this.state.name}
-						maxLength={20}
-						placeholder="New contact's name"
-						placeholderTextColor='gray'
-						underlineColorAndroid='transparent'>
-					</TextInput>
-					<TextInput
-						style={styles.textInput}
-						onChangeText={(phone) => this.setState({ phone })}
-						value={this.state.phone}
-						keyboardType='numeric'
-						maxLength={7}
-						placeholder="New phone number"
-						placeholderTextColor='gray'
-						underlineColorAndroid='transparent'>
-					</TextInput>
-					<Button style={styles.submitButton}
-						onPress={this.validateAndPassOn.bind(this)}>
-						Save
+				<View>
+					{
+						imageUri
+							?
+							<Image source={{ uri: imageUri }} style={styles.image} />
+							:
+							<View style={styles.iconLayout}>
+								<TouchableOpacity
+									onPress={() => this.takePhoto()}>
+									<Entypo style={styles.icon} name="camera" />
+								</TouchableOpacity>
+								<TouchableOpacity
+									onPress={() => this.selectFromCameraRoll()}>
+									<Entypo style={styles.icon} name="image" />
+								</TouchableOpacity>
+							</View>
+					}
+				</View>
+				<TextInput
+					style={styles.textInput}
+					onChangeText={(name) => this.setState({ name })}
+					value={this.state.name}
+					maxLength={20}
+					placeholder="New contact's name"
+					placeholderTextColor='gray'
+					underlineColorAndroid='transparent'>
+				</TextInput>
+				<TextInput
+					style={styles.textInput}
+					onChangeText={(phone) => this.setState({ phone })}
+					value={this.state.phone}
+					keyboardType='numeric'
+					maxLength={7}
+					placeholder="New phone number"
+					placeholderTextColor='gray'
+					underlineColorAndroid='transparent'>
+				</TextInput>
+				<Button style={styles.submitButton}
+					activeOpacity={.5}
+					onPress={this.validateAndPassOn.bind(this)}
+					disabled={isEnabled ? false : true}>
+					Save
 					</Button>
-				</View >
 			</Modal >
 		);
 	}

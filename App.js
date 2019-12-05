@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
-import AppContainer from './src/routes';
+import AppContainer from './Src/routes';
 
 export default function App() {
 	return (

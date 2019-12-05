@@ -97,11 +97,12 @@ class AddModal extends React.Component {
 				<Button style={styles.submitButton}
 					activeOpacity={.5}
 					onPress={this.validateAndPassOn.bind(this)}
-					disabled={isEnabled ? false : true}>
+					disabled={isEnabled ? false : true}
+					style={isEnabled ? { backgroundColor: 'gray' } : { backgroundColor: 'darkgray' }}>
 
 					Save
 					</Button>
-			</Modal >
+			</Modal>
 		)
 	}
 }

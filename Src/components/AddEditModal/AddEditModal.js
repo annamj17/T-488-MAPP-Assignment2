@@ -6,7 +6,7 @@ import styles from './styles';
 import { Entypo } from '@expo/vector-icons';
 import { colors } from 'react-native-elements';
 import { selectFromCameraRoll, takePhoto } from '../../services/imageService';
-import { addContact, removeContact } from '../../services/services';
+import { addContact, removeContact, makeValidStringForFileName } from '../../services/services';
 
 class AddModal extends React.Component {
 	constructor(props) {
@@ -20,7 +20,9 @@ class AddModal extends React.Component {
 
 	async deleteOldContact() {
 		oldObject = this.props.value.name;
-		console.log("name", oldObject);
+		console.log("deleteOldContact> Old object", oldObject);
+		oldObject = makeValidStringForFileName(oldObject);
+		console.log("deleteOldContact> Old object2", oldObject);
 		await removeContact(oldObject);
 		console.log("REMOVED CONTACT", oldObject);
 	}
@@ -35,28 +37,16 @@ class AddModal extends React.Component {
 		this.setState({ imageUri: photo });
 	}
 
-	// async validateAndPassOn() {
-	// 	if (this.state.name && this.state.phone && this.state.imageUri) {
-	// 		newContact = {
-	// 			"name": this.state.name,
-	// 			"phone": this.state.phone,
-	// 			"imageUri": this.state.imageUri,
-	// 		}
-	// 		console.log("newContact", newContact);
-	// 		await addContact(newContact);
-	// 		this.setState({ closeModal: true, updateList: true, name: '', phone: '', imageUri: '' })
-	// 	}
-	// }
-
 	async editContact() {
 		newContact = {
 			"name": this.state.name,
 			"phone": this.state.phone,
+			imageUri: this.state.imageUri,
 		}
-		await addContact("ADDED CONTACT", newContact);
+		await addContact(newContact);
 		console.log("ADDED CONTACT", newContact)
-		deleteOldContact();
-		this.setState({ name: '', phone: '' });
+		await this.deleteOldContact();
+		this.setState({ closeModal: true, updateList: true, name: '', phone: '', imageUri: '' })
 		this.props.closeModal();
 	}
 
@@ -113,12 +103,14 @@ class AddModal extends React.Component {
 					underlineColorAndroid='transparent'>
 				</TextInput>
 				<Button style={styles.submitButton}
-					activeOpacity={.5}
-					onPress={this.editContact.bind(this)}
-					disabled={isEnabled ? false : true}>
+					onPress={this.editContact.bind(this)}>
 					Update
 					</Button>
-			</Modal >
+				<Button style={styles.submitButton}
+					onPress={this.deleteOldContact.bind(this)}>
+					Delete
+					</Button>
+			</Modal>
 		);
 	}
 }

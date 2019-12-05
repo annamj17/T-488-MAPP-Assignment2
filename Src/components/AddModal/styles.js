@@ -59,6 +59,6 @@ export default StyleSheet.create({
 		// marginRight: 70,
 		height: 40,
 		borderRadius: 6,
-		backgroundColor: 'gray'
+		//backgroundColor: 'gray'
 	}
 });

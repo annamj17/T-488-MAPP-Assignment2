@@ -16,18 +16,21 @@ export const writeToFile = async (file, newLocation) => {
 	onException(() => FileSystem.writeAsStringAsync(newLocation, file));
 };
 export const removeContact = async fileName => {
-	return onException(() => FileSystem.deleteAsync(`${contactsDirectory} / ${fileName}`, { idempotent: true }));
+	console.log("removeContact>Dirname ", `${contactsDirectory}/${fileName}`);
+	return onException(() => FileSystem.deleteAsync(`${contactsDirectory}/${fileName}`, { idempotent: true }));
 };
 
 // So filename is a valid string
-function makeValidStringForFileName(str) {
+export function makeValidStringForFileName(str) {
 	const validString = str.replace(/\s/g, '')
 	return validString.replace(/[^A-Za-z0-9\s-]/g, '');
 };
 
 export const addContact = async contactLocation => {
 	const fileName = makeValidStringForFileName(contactLocation.name);
+	console.log("addContact>fileName", fileName);
 	const contJson = JSON.stringify(contactLocation);
+	console.log("addContact>contJson", contJson);
 	await onException(() => writeToFile(contJson, `${contactsDirectory}/${fileName}`));
 };
 
@@ -62,10 +65,10 @@ function getDataFromContactOS(data) {
 		//console.log(data[i].phoneNumbers[0].number);
 
 		if (data[i].imageAvailable == true) {
-			newContactOS.image = data[i].image.uri;
+			newContactOS.imageUri = data[i].image.uri;
 		}
 		else {
-			newContactOS.image = 'https://www.clipartwiki.com/clipimg/detail/149-1490051_computer-icons-user-profile-male-my-profile-icon.png';
+			newContactOS.imageUri = 'https://www.clipartwiki.com/clipimg/detail/149-1490051_computer-icons-user-profile-male-my-profile-icon.png';
 		}
 		//newContactOS.image = data[i].images[0].image;
 		//console.log(data[i].images[0].image);

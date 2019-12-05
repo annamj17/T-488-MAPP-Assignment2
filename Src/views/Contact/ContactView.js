@@ -29,7 +29,6 @@ class ContactView extends React.Component {
 			search: '',
 			isAddModalOpen: false,
 			modal: true,
-			newPhotoUri: ''
 		}
 	};
 
@@ -39,10 +38,6 @@ class ContactView extends React.Component {
 	};
 
 	async _fetchItems() {
-		// const tempObj = { name: "nokkvi", phonenumber: "7734691", image: "sd" };
-		// const tempObjM = { name: "magga", phonenumber: "8237163", image: "ss" }
-		// await addContact(tempObj);
-		// await addContact(tempObjM);
 		const contactData = await getAllContacts();
 		contactData.sort((a, b) => (a.name < b.name) ? -1 : 1);
 		this.setState({ data: contactData })

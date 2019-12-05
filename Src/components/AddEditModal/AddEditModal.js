@@ -6,7 +6,7 @@ import styles from './styles';
 import { Entypo } from '@expo/vector-icons';
 import { colors } from 'react-native-elements';
 import { selectFromCameraRoll, takePhoto } from '../../services/imageService';
-import { addContact, removeContact } from '../../services/services';
+import { addContact, removeContact, makeValidStringForFileName, loadContact } from '../../services/services';
 
 class AddModal extends React.Component {
 	constructor(props) {
@@ -15,14 +15,17 @@ class AddModal extends React.Component {
 			name: '',
 			phone: '',
 			imageUri: '',
+			oldContactInfo: []
 		}
 	}
 
 	async deleteOldContact() {
+		console.log("===================================================deleteOldContact");
 		oldObject = this.props.value.name;
-		console.log("name", oldObject);
-		await removeContact(oldObject);
-		console.log("REMOVED CONTACT", oldObject);
+		console.log("deleteOldContact> Old object:", oldObject);
+		oldObject = await makeValidStringForFileName(oldObject);
+		console.log("deleteOldContact> Old object after makeValidStringForFileName: ", oldObject);
+		console.log(await removeContact(oldObject))
 	}
 
 	async takePhoto() {
@@ -35,37 +38,33 @@ class AddModal extends React.Component {
 		this.setState({ imageUri: photo });
 	}
 
-	// async validateAndPassOn() {
-	// 	if (this.state.name && this.state.phone && this.state.imageUri) {
-	// 		newContact = {
-	// 			"name": this.state.name,
-	// 			"phone": this.state.phone,
-	// 			"imageUri": this.state.imageUri,
-	// 		}
-	// 		console.log("newContact", newContact);
-	// 		await addContact(newContact);
-	// 		this.setState({ closeModal: true, updateList: true, name: '', phone: '', imageUri: '' })
-	// 	}
-	// }
+	async setOldInfo(oldContactInfo) {
+		this.oldContactInfo = oldContactInfo;
+		console.log("oldContactInfo",oldContactInfo);
+	}
 
 	async editContact() {
+		console.log("===================================================editContact");
+		console.log("Before delete: this.props.name: ", this.oldContactInfo.name);
+		await this.deleteOldContact();
+		console.log("After delete: this.state.name: ", this.state.name);
 		newContact = {
-			"name": this.state.name,
-			"phone": this.state.phone,
+			"name": this.state.name ? this.state.name : this.oldContactInfo.name,
+			"phone": this.state.phone ? this.state.phone : this.oldContactInfo.phone,
+			"imageUri": this.state.imageUri ? this.state.imageUri : this.oldContactInfo.imageUri,
 		}
-		await addContact("ADDED CONTACT", newContact);
+		console.log("this.state.name: ", this.state.name);
+		await addContact(newContact);
 		console.log("ADDED CONTACT", newContact)
-		deleteOldContact();
-		this.setState({ name: '', phone: '' });
+		this.setState({ closeModal: true, updateList: true, name: '', phone: '', imageUri: '' })
 		this.props.closeModal();
 	}
 
 	render() {
-		const { isOpen, closeModal, updateList, value, didChange } = this.props;
+		const { isOpen, closeModal, updateList, value } = this.props;
 		const { imageUri, name, phone } = this.state;
 		const isEnabled = name.length > 0 && phone.length > 0 && imageUri.length > 0;
 		return (
-
 			<Modal
 				isOpen={isOpen}
 				closeModal={closeModal}
@@ -113,12 +112,15 @@ class AddModal extends React.Component {
 					underlineColorAndroid='transparent'>
 				</TextInput>
 				<Button style={styles.submitButton}
-					activeOpacity={.5}
-					onPress={this.editContact.bind(this)}
-					disabled={isEnabled ? false : true}>
+				onPress={this.setOldInfo(value)}
+					onPress={this.editContact.bind(this)}>
 					Update
 					</Button>
-			</Modal >
+				<Button style={styles.submitButton}
+					onPress={this.deleteOldContact.bind(this)}>
+					Delete
+					</Button>
+			</Modal>
 		);
 	}
 }

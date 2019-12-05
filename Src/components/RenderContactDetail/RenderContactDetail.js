@@ -9,7 +9,7 @@ const RenderContactDetail = ({ contact }) => {
 	return (
 		<View style={styles.container}>
 			<View style={styles.header}></View>
-			<Image style={styles.avatar} source={{ uri: contact.image }} />
+			<Image style={styles.avatar} source={{ uri: contact.imageUri }} />
 			<View style={styles.body}>
 				<View style={styles.bodyContent}>
 				</View>
@@ -23,7 +23,6 @@ const RenderContactDetail = ({ contact }) => {
 			</TouchableOpacity>
 		</View>
 	);
-
 }
 
 export default RenderContactDetail;

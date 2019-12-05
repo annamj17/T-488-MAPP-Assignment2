@@ -5,15 +5,15 @@ const onException = (cb, errorHandler) => {
 	try {
 		return cb();
 	} catch (err) {
-		if (errorHandler) {
-			return errorHandler(err);
-		}
 		console.error(err);
 	}
 };
 
 export const writeToFile = async (file, newLocation) => {
 	onException(() => FileSystem.writeAsStringAsync(newLocation, file));
+};
+export const removeContact = async fileName => {
+	return onException(() => FileSystem.deleteAsync(`${contactsDirectory} / ${fileName}`, { idempotent: true }));
 };
 
 // So filename is a valid string
@@ -47,9 +47,7 @@ export const getAllContacts = async () => {
 	await setupDirectory();
 
 	const result = await onException(() => FileSystem.readDirectoryAsync(contactsDirectory));
-	let newJsContact = {};
 	return Promise.all(result.map(async (fileName) => {
-		newJsContact = JSON.parse(await loadContact(fileName));
-		return newJsContact;
+		return JSON.parse(await loadContact(fileName));
 	}));
 };

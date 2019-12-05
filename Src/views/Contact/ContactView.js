@@ -81,7 +81,6 @@ class ContactView extends React.Component {
 				<AddModal
 					isOpen={isAddModalOpen}
 					closeModal={() => this.modalClosed()}
-					updateList={() => this.componentDidMount()}
 				/>
 			</View>
 		);

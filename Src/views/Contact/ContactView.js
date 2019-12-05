@@ -5,7 +5,7 @@ import RenderAllContacts from '../../components/RenderAllContacts/RendarAllConta
 import SearchBar from '../../components/SearchBar/SearchBar';
 import AddModal from '../../components/AddModal/AddModal';
 import { getAllContacts, addContact, addImage } from '../../services/services';
-import { takePhoto, selectFromCameraRoll } from '../../services/imageService';
+import { takePhoto } from '../../services/imageService';
 
 class ContactView extends React.Component {
 
@@ -29,6 +29,7 @@ class ContactView extends React.Component {
 			search: '',
 			isAddModalOpen: false,
 			modal: true,
+			newPhotoUri: ''
 		}
 	};
 
@@ -45,7 +46,8 @@ class ContactView extends React.Component {
 		const contactData = await getAllContacts();
 		contactData.sort((a, b) => (a.name < b.name) ? -1 : 1);
 		this.setState({ data: contactData })
-	};
+	}
+
 
 	_openModal = () => {
 		this.setState({ modal: this.state.isAddModalOpen = true });
@@ -58,24 +60,6 @@ class ContactView extends React.Component {
 			return item.name.toLowerCase().includes(search.toLowerCase());
 		});
 		return filteredData;
-	};
-
-	async takePhoto() {
-		const photo = await takePhoto();
-		if (photo.length > 0) { await this.addImage(photo); }
-	};
-
-	async selectFromCameraRoll() {
-		const photo = await selectFromCameraRoll();
-		if (photo.length > 0) { await this.addImage(photo); }
-	};
-
-	async addImage(image) {
-		this.setState({ loadingImages: true });
-
-		const newImage = await addImage(image);
-		const { images } = this.state;
-		this.setState({ images: [...images, newImage], loadingImages: false, isAddModalOpen: false });
 	};
 
 	async modalClosed() {
@@ -98,9 +82,6 @@ class ContactView extends React.Component {
 				<AddModal
 					isOpen={isAddModalOpen}
 					closeModal={() => this.modalClosed()}
-					takePhoto={() => this.takePhoto()}
-					selectFromCameraRoll={() => this.selectFromCameraRoll()}
-					updateList={() => this.componentDidMount()}
 				/>
 			</View>
 		);

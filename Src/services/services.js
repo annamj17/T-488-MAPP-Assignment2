@@ -1,19 +1,22 @@
 import * as FileSystem from 'expo-file-system';
 const contactsDirectory = `${FileSystem.documentDirectory}contacts`;
+import * as Contacts from 'expo-contacts';
+import * as Permissions from 'expo-permissions';
+
 
 const onException = (cb, errorHandler) => {
 	try {
 		return cb();
 	} catch (err) {
-		if (errorHandler) {
-			return errorHandler(err);
-		}
 		console.error(err);
 	}
 };
 
 export const writeToFile = async (file, newLocation) => {
 	onException(() => FileSystem.writeAsStringAsync(newLocation, file));
+};
+export const removeContact = async fileName => {
+	return onException(() => FileSystem.deleteAsync(`${contactsDirectory} / ${fileName}`, { idempotent: true }));
 };
 
 // So filename is a valid string
@@ -42,14 +45,59 @@ const setupDirectory = async () => {
 	}
 };
 
+function getDataFromContactOS(data) {
+	const contacts = [];
+	let newContactOS = {};
+	for (let i = 1; i < data.length; i += 1) {
+		newContactOS.name = data[i].name;
+		//console.log(data[i].name);
+
+		if (data[i].phoneNumbers !== undefined) {
+			newContactOS.phone = data[i].phoneNumbers[0].number;
+			//console.log(data[i].phoneNumbers[0].number);
+		} else {
+			newContactOS.phone = '';
+		}
+		//newContactOS.phoneNumber = data[i].phoneNumbers[0].number;
+		//console.log(data[i].phoneNumbers[0].number);
+
+		if (data[i].imageAvailable == true) {
+			newContactOS.image = data[i].image.uri;
+		}
+		else {
+			newContactOS.image = 'https://www.clipartwiki.com/clipimg/detail/149-1490051_computer-icons-user-profile-male-my-profile-icon.png';
+		}
+		//newContactOS.image = data[i].images[0].image;
+		//console.log(data[i].images[0].image);
+
+		contacts.push(newContactOS);
+		newContactOS = {};
+	}
+	return contacts;
+}
+
 // A Promise that resolves to an array of strings, each containing the name of a file or directory contained in the directory at fileUri.
 export const getAllContacts = async () => {
 	await setupDirectory();
 
+	let newContactOSArray = [];
+	const { status } = await Permissions.askAsync(Permissions.CONTACTS);
+	if (status === 'granted') {
+		const { data } = await Contacts.getContactsAsync({
+			fields: [
+				Contacts.Fields.Name,
+				Contacts.Fields.PhoneNumbers,
+				Contacts.Fields.Image
+			],
+		});
+
+		newContactOSArray = (getDataFromContactOS(data));
+		newContactOSArray.map(async (contact) => {
+			await addContact(contact);
+		});
+	}
 	const result = await onException(() => FileSystem.readDirectoryAsync(contactsDirectory));
-	let newJsContact = {};
 	return Promise.all(result.map(async (fileName) => {
-		newJsContact = JSON.parse(await loadContact(fileName));
-		return newJsContact;
+		return JSON.parse(await loadContact(fileName));
 	}));
 };

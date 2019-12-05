@@ -36,7 +36,7 @@ class ContactView extends React.Component {
 	async componentDidMount() {
 		await this._fetchItems();
 		this.props.navigation.setParams({ openModal: this._openModal });
-	}
+	};
 
 	async _fetchItems() {
 		// const tempObj = { name: "nokkvi", phonenumber: "7734691", image: "sd" };
@@ -48,9 +48,10 @@ class ContactView extends React.Component {
 		this.setState({ data: contactData })
 	}
 
+
 	_openModal = () => {
 		this.setState({ modal: this.state.isAddModalOpen = true });
-	}
+	};
 
 	filterData = () => {
 		const { search, data } = this.state;
@@ -64,7 +65,7 @@ class ContactView extends React.Component {
 	async modalClosed() {
 		this.setState({ isAddModalOpen: false })
 		this._fetchItems();
-	}
+	};
 
 	render() {
 		const { navigate } = this.props.navigation;
@@ -84,7 +85,7 @@ class ContactView extends React.Component {
 				/>
 			</View>
 		);
-	}
+	};
 }
 
 const styles = StyleSheet.create({

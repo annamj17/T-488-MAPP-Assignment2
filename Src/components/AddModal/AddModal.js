@@ -1,9 +1,9 @@
 import React from 'react';
 import { View, TextInput, Text, Image, TouchableOpacity } from 'react-native';
 import Button from 'react-native-button';
+
 import Modal from '../Modal/Modal';
 import styles from './styles';
-import { Entypo } from '@expo/vector-icons';
 import { addContact } from '../../services/services';
 import { colors } from 'react-native-elements';
 import { selectFromCameraRoll, takePhoto } from '../../services/imageService';
@@ -43,10 +43,11 @@ class AddModal extends React.Component {
 	}
 
 	render() {
+
 		const { isOpen, closeModal, updateList, addContact, didChange } = this.props;
 		const { imageUri, name, phone } = this.state;
 		const isEnabled = name.length > 0 && phone.length > 0 && imageUri.length > 0;
-		return (
+
 
 			<Modal
 				isOpen={isOpen}
@@ -96,6 +97,7 @@ class AddModal extends React.Component {
 					activeOpacity={.5}
 					onPress={this.validateAndPassOn.bind(this)}
 					disabled={isEnabled ? false : true}>
+
 					Save
 					</Button>
 			</Modal >

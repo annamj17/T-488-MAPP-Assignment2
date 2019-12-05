@@ -7,7 +7,6 @@ const SearchBar = ({ value, onSearch }) => (
         lightTheme
         placeholder="Type Here..."
         onChangeText={onSearch}
-        // onClearText={someMethod}
         value={value}
         showLoading={false}
         containerStyle={{ borderWidth: 1, borderRadius: 5 }}

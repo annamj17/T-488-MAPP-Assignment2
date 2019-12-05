@@ -1,7 +1,9 @@
 import React from 'react';
-import { Text, Image, View } from 'react-native';
-
+import { Text, Image, View, TouchableOpacity, Button } from 'react-native';
+import RNImmediatePhoneCall from 'react-native-immediate-phone-call';
 import styles from './styles';
+import { Entypo } from '@expo/vector-icons';
+import {Linking} from 'react-native'
 
 const RenderContactDetail = ({ contact }) => {
 
@@ -14,7 +16,12 @@ const RenderContactDetail = ({ contact }) => {
                 </View>
             </View>
             <Text style={styles.name}> {contact.name} </Text>
-            <Text style={styles.info}> {contact.phone} </Text>
+            <TouchableOpacity
+                onPress={()=>{Linking.openURL(`tel:${contact.phone}`);}}>
+                    <Text style={styles.info}> {contact.phone} 
+                        <Entypo style={styles.icon} name="phone" />
+                    </Text> 
+            </TouchableOpacity>
         </View>
     );
 }

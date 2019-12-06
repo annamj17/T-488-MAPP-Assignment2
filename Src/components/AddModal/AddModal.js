@@ -6,10 +6,10 @@ import { Entypo } from '@expo/vector-icons';
 import Modal from '../Modal/Modal';
 import styles from './styles';
 import { addContact } from '../../services/services';
-import { colors } from 'react-native-elements';
 import { selectFromCameraRoll, takePhoto } from '../../services/imageService';
 
 class AddModal extends React.Component {
+
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -17,17 +17,17 @@ class AddModal extends React.Component {
 			phone: '',
 			imageUri: '',
 		}
-	}
+	};
 
 	async takePhoto() {
 		const photo = await takePhoto();
 		this.setState({ imageUri: photo });
-	}
+	};
 
 	async selectFromCameraRoll() {
 		const photo = await selectFromCameraRoll();
 		this.setState({ imageUri: photo });
-	}
+	};
 
 	async validateAndPassOn() {
 		if (this.state.name && this.state.phone && this.state.imageUri) {
@@ -41,7 +41,7 @@ class AddModal extends React.Component {
 			this.setState({ closeModal: true, updateList: true, name: '', phone: '', imageUri: '' })
 			this.props.closeModal();
 		}
-	}
+	};
 
 	render() {
 
@@ -56,7 +56,7 @@ class AddModal extends React.Component {
 				updateList={updateList} >
 				<Text style={styles.textStyle}>
 					Create New Contact
-					</Text>
+				</Text>
 				<View>
 					{
 						imageUri
@@ -99,11 +99,10 @@ class AddModal extends React.Component {
 					onPress={this.validateAndPassOn.bind(this)}
 					disabled={isEnabled ? false : true}
 					style={isEnabled ? { backgroundColor: 'gray' } : { backgroundColor: 'darkgray' }}>
-
 					Save
-					</Button>
+				</Button>
 			</Modal>
-		)
+		);
 	}
 }
 

@@ -3,8 +3,7 @@ import { StyleSheet } from 'react-native';
 export default StyleSheet.create({
 	header: {
 		backgroundColor: "black",
-		//backgroundColor: "#00BFFF",
-		height: 200,
+		height: 200
 	},
 	avatar: {
 		width: 130,
@@ -19,7 +18,7 @@ export default StyleSheet.create({
 	},
 	body: {
 		flex: 1,
-		marginTop: 60,
+		marginTop: 60
 	},
 	bodyContent: {
 		flex: 1,
@@ -27,7 +26,7 @@ export default StyleSheet.create({
 		padding: 30,
 		paddingBottom: 20,
 		borderWidth: 1,
-		borderColor: 'gray',
+		borderColor: 'gray'
 	},
 	name: {
 		fontSize: 35,
@@ -41,7 +40,7 @@ export default StyleSheet.create({
 		color: "gray",
 		marginTop: 40,
 		borderWidth: 1,
-		borderColor: 'gray',
+		borderColor: 'gray'
 	},
 	icon: {
 		fontSize: 20,

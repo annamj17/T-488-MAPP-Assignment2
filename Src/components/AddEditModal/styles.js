@@ -1,12 +1,8 @@
-import { StyleSheet, Dimensions } from 'react-native';
-
-const { width: winWidth } = Dimensions.get('window');
+import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
 	icon: {
 		fontSize: 60,
-		// marginTop: 20,
-		// marginBottom: 20
 		marginLeft: 10,
 		marginRight: 10,
 	},
@@ -25,7 +21,6 @@ export default StyleSheet.create({
 		justifyContent: 'center',
 		borderRadius: 30,
 		shadowRadius: 10,
-		//width: winWidth - 80,
 		height: 280,
 	},
 	textInput: {
@@ -37,13 +32,6 @@ export default StyleSheet.create({
 		marginBottom: 20,
 		borderBottomWidth: 1,
 		textAlign: "auto",
-		// alignSelf: 'stretch',
-		// color: 'black',
-		// alignItems: 'center',
-		// alignContent: 'center',
-		// backgroundColor: 'black',
-		// fontSize: 18,
-		// left: 30
 	},
 	textStyle: {
 		fontSize: 16,
@@ -55,8 +43,6 @@ export default StyleSheet.create({
 		fontSize: 18,
 		color: 'white',
 		padding: 8,
-		// marginLeft: 70,
-		// marginRight: 70,
 		height: 40,
 		borderRadius: 6,
 		backgroundColor: 'gray'

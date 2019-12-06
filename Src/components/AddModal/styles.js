@@ -1,14 +1,10 @@
-import { StyleSheet, Dimensions } from 'react-native';
-
-const { width: winWidth } = Dimensions.get('window');
+import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
 	icon: {
 		fontSize: 60,
-		// marginTop: 20,
-		// marginBottom: 20
 		marginLeft: 10,
-		marginRight: 10,
+		marginRight: 10
 	},
 	iconLayout: {
 		flexDirection: "row"
@@ -19,14 +15,13 @@ export default StyleSheet.create({
 		width: 150,
 		borderWidth: 1,
 		borderRadius: 75,
-		marginTop: 10,
+		marginTop: 10
 	},
 	myModal: {
 		justifyContent: 'center',
 		borderRadius: 30,
 		shadowRadius: 10,
-		//width: winWidth - 80,
-		height: 280,
+		height: 280
 	},
 	textInput: {
 		height: 40,
@@ -36,14 +31,7 @@ export default StyleSheet.create({
 		marginTop: 20,
 		marginBottom: 20,
 		borderBottomWidth: 1,
-		textAlign: "auto",
-		// alignSelf: 'stretch',
-		// color: 'black',
-		// alignItems: 'center',
-		// alignContent: 'center',
-		// backgroundColor: 'black',
-		// fontSize: 18,
-		// left: 30
+		textAlign: "auto"
 	},
 	textStyle: {
 		fontSize: 16,
@@ -55,10 +43,7 @@ export default StyleSheet.create({
 		fontSize: 18,
 		color: 'white',
 		padding: 8,
-		// marginLeft: 70,
-		// marginRight: 70,
 		height: 40,
-		borderRadius: 6,
-		//backgroundColor: 'gray'
+		borderRadius: 6
 	}
 });

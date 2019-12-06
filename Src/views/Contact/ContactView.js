@@ -4,8 +4,7 @@ import { StyleSheet, View, Button } from 'react-native';
 import RenderAllContacts from '../../components/RenderAllContacts/RendarAllContacts';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import AddModal from '../../components/AddModal/AddModal';
-import { getAllContacts, addContact, addImage } from '../../services/services';
-import { takePhoto } from '../../services/imageService';
+import { getAllContacts } from '../../services/services';
 
 class ContactView extends React.Component {
 
@@ -41,7 +40,7 @@ class ContactView extends React.Component {
 		const contactData = await getAllContacts();
 		contactData.sort((a, b) => (a.name < b.name) ? -1 : 1);
 		this.setState({ data: contactData })
-	}
+	};
 
 
 	_openModal = () => {
@@ -51,7 +50,7 @@ class ContactView extends React.Component {
 	filterData = () => {
 		const { search, data } = this.state;
 		data.sort((a, b) => (a.name < b.name) ? -1 : 1);
-		let filteredData = data.filter(function(item) {
+		let filteredData = data.filter(function (item) {
 			return item.name.toLowerCase().includes(search.toLowerCase());
 		});
 		return filteredData;
@@ -63,9 +62,11 @@ class ContactView extends React.Component {
 	};
 
 	render() {
+
 		const { navigate } = this.props.navigation;
 		const { search, isAddModalOpen } = this.state;
 		const filteredData = this.filterData();
+		
 		return (
 			<View style={styles.screens}>
 				<SearchBar value={search} onSearch={search => this.setState({ search })} />

@@ -20,6 +20,7 @@ class ContactDetailView extends React.Component {
 			),
 		};
 	};
+
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -48,7 +49,9 @@ class ContactDetailView extends React.Component {
 	};
 
 	render() {
+
 		const { isAddModalOpen } = this.state;
+		
 		return (
 			<View style={styles.screens}>
 				<RenderContactDetail
@@ -58,8 +61,6 @@ class ContactDetailView extends React.Component {
 					isOpen={isAddModalOpen}
 					closeModal={() => this.setState({ isAddModalOpen: false })}
 					value={this.state.contact}
-				// takePhoto={() => this.takePhoto()}
-				// selectFromCameraRoll={() => this.selectFromCameraRoll()} 
 				/>
 			</View>
 		);

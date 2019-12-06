@@ -1,8 +1,8 @@
 import React from 'react';
-import { Text, Image, View, TouchableOpacity, Button } from 'react-native';
-import styles from './styles';
+import { Text, Image, View, TouchableOpacity, Linking } from 'react-native';
 import { Entypo } from '@expo/vector-icons';
-import { Linking } from 'react-native'
+
+import styles from './styles';
 
 const RenderContactDetail = ({ contact }) => {
 
@@ -11,8 +11,7 @@ const RenderContactDetail = ({ contact }) => {
 			<View style={styles.header}></View>
 			<Image style={styles.avatar} source={{ uri: contact.imageUri }} />
 			<View style={styles.body}>
-				<View style={styles.bodyContent}>
-				</View>
+				<View style={styles.bodyContent}></View>
 			</View>
 			<Text style={styles.name}> {contact.name} </Text>
 			<TouchableOpacity

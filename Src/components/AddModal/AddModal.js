@@ -36,7 +36,6 @@ class AddModal extends React.Component {
 				"phone": this.state.phone,
 				"imageUri": this.state.imageUri,
 			}
-			console.log("newContact", newContact);
 			await addContact(newContact);
 			this.setState({ closeModal: true, name: '', phone: '', imageUri: '' })
 			this.props.closeModal();

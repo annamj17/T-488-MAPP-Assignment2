@@ -38,22 +38,21 @@ class AddModal extends React.Component {
 			}
 			console.log("newContact", newContact);
 			await addContact(newContact);
-			this.setState({ closeModal: true, updateList: true, name: '', phone: '', imageUri: '' })
+			this.setState({ closeModal: true, name: '', phone: '', imageUri: '' })
 			this.props.closeModal();
 		}
 	};
 
 	render() {
 
-		const { isOpen, closeModal, updateList, addContact, didChange } = this.props;
+		const { isOpen, closeModal } = this.props;
 		const { imageUri, name, phone } = this.state;
 		const isEnabled = name.length > 0 && phone.length > 0 && imageUri.length > 0;
 
 		return (
 			<Modal
 				isOpen={isOpen}
-				closeModal={closeModal}
-				updateList={updateList} >
+				closeModal={closeModal}>
 				<Text style={styles.textStyle}>
 					Create New Contact
 				</Text>
@@ -78,7 +77,7 @@ class AddModal extends React.Component {
 				<TextInput
 					style={styles.textInput}
 					onChangeText={(name) => this.setState({ name })}
-					value={this.state.name}
+					value={name}
 					maxLength={20}
 					placeholder="New contact's name"
 					placeholderTextColor='gray'
@@ -87,7 +86,7 @@ class AddModal extends React.Component {
 				<TextInput
 					style={styles.textInput}
 					onChangeText={(phone) => this.setState({ phone })}
-					value={this.state.phone}
+					value={phone}
 					keyboardType='numeric'
 					maxLength={7}
 					placeholder="New phone number"

@@ -6,7 +6,7 @@ import { Entypo } from '@expo/vector-icons';
 import Modal from '../Modal/Modal';
 import styles from './styles';
 import { selectFromCameraRoll, takePhoto } from '../../services/imageService';
-import { addContact, removeContact, makeValidStringForFileName, loadContact } from '../../services/services';
+import { addContact, removeContact, makeValidStringForFileName } from '../../services/services';
 
 class AddEditModal extends React.Component {
 
@@ -57,21 +57,19 @@ class AddEditModal extends React.Component {
 		console.log("this.state.name: ", this.state.name);
 		await addContact(newContact);
 		console.log("ADDED CONTACT", newContact)
-		this.setState({ closeModal: true, updateList: true, name: '', phone: '', imageUri: '' })
+		this.setState({ closeModal: true, name: '', phone: '', imageUri: '' })
 		this.props.closeModal();
 	};
 
 	render() {
 
-		const { isOpen, closeModal, updateList, value } = this.props;
+		const { isOpen, closeModal, value } = this.props;
 		const { imageUri, name, phone } = this.state;
-		const isEnabled = name.length > 0 && phone.length > 0 && imageUri.length > 0;
 
 		return (
 			<Modal
 				isOpen={isOpen}
-				closeModal={closeModal}
-				updateList={updateList} >
+				closeModal={closeModal}>
 				<Text style={styles.textStyle}>
 					Edit Contact
 				</Text>
@@ -96,7 +94,7 @@ class AddEditModal extends React.Component {
 				<TextInput
 					style={styles.textInput}
 					onChangeText={(name) => this.setState({ name })}
-					value={this.state.name}
+					value={name}
 					maxLength={20}
 					placeholder={value.name}
 					editable={true}
@@ -106,7 +104,7 @@ class AddEditModal extends React.Component {
 				<TextInput
 					style={styles.textInput}
 					onChangeText={(phone) => this.setState({ phone })}
-					value={this.state.phone}
+					value={phone}
 					keyboardType='numeric'
 					maxLength={7}
 					editable={true}

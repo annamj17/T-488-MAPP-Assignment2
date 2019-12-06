@@ -21,12 +21,9 @@ class AddEditModal extends React.Component {
 	};
 
 	async deleteOldContact() {
-		console.log("===================================================deleteOldContact");
 		oldObject = this.props.value.name;
-		console.log("deleteOldContact> Old object:", oldObject);
 		oldObject = await makeValidStringForFileName(oldObject);
-		console.log("deleteOldContact> Old object after makeValidStringForFileName: ", oldObject);
-		console.log(await removeContact(oldObject))
+		await removeContact(oldObject);
 	};
 
 	async takePhoto() {
@@ -41,24 +38,17 @@ class AddEditModal extends React.Component {
 
 	async setOldInfo(oldContactInfo) {
 		this.oldContactInfo = oldContactInfo;
-		console.log("oldContactInfo", oldContactInfo);
 	};
 
 	async editContact() {
-		console.log("===================================================editContact");
-		console.log("Before delete: this.props.name: ", this.oldContactInfo.name);
 		await this.deleteOldContact();
-		console.log("After delete: this.state.name: ", this.state.name);
 		newContact = {
 			"name": this.state.name ? this.state.name : this.oldContactInfo.name,
 			"phone": this.state.phone ? this.state.phone : this.oldContactInfo.phone,
 			"imageUri": this.state.imageUri ? this.state.imageUri : this.oldContactInfo.imageUri
 		}
-		console.log("this.state.name: ", this.state.name);
 		await addContact(newContact);
-		console.log("ADDED CONTACT", newContact)
 		this.setState({ closeModal: true, name: '', phone: '', imageUri: '' })
-		this.props.closeModal();
 	};
 
 	render() {

@@ -1,10 +1,9 @@
 import * as FileSystem from 'expo-file-system';
-const contactsDirectory = `${FileSystem.documentDirectory}contacts`;
 import * as Contacts from 'expo-contacts';
 import * as Permissions from 'expo-permissions';
+const contactsDirectory = `${FileSystem.documentDirectory}contacts`;
 
-
-const onException = (cb, errorHandler) => {
+const onException = (cb) => {
 	try {
 		return cb();
 	} catch (err) {
@@ -15,25 +14,20 @@ const onException = (cb, errorHandler) => {
 export const writeToFile = async (file, newLocation) => {
 	onException(() => FileSystem.writeAsStringAsync(newLocation, file));
 };
+
 export const removeContact = async fileName => {
-	console.log("removeContact>FileName: ", fileName);
-	console.log("removeContact>Dirname: ", `${contactsDirectory}/${fileName}`);
 	return onException(() => FileSystem.deleteAsync(`${contactsDirectory}/${fileName}`, { idempotent: true }));
 };
 
 // So filename is a valid string
 export function makeValidStringForFileName(str) {
-	console.log("makeValidStringForFileName>str: ", str);
 	const validString = str.replace(/\s/g, '')
 	return validString.replace(/[^A-Za-z0-9\s-]/g, '');
 };
 
 export const addContact = async contactLocation => {
-	console.log("===================================================editContact");
 	const fileName = makeValidStringForFileName(contactLocation.name);
-	console.log("addContact>fileName: ", fileName);
 	const contJson = JSON.stringify(contactLocation);
-	console.log("addContact>contJson: ", contJson);
 	await onException(() => writeToFile(contJson, `${contactsDirectory}/${fileName}`));
 };
 
@@ -56,26 +50,20 @@ function getDataFromContactOS(data) {
 	let newContactOS = {};
 	for (let i = 1; i < data.length; i += 1) {
 		newContactOS.name = data[i].name;
-		//console.log(data[i].name);
 
 		if (data[i].phoneNumbers !== undefined) {
 			newContactOS.phone = data[i].phoneNumbers[0].number;
-			//console.log(data[i].phoneNumbers[0].number);
-		} else {
+
+		} 
+		else {
 			newContactOS.phone = '';
 		}
-		//newContactOS.phoneNumber = data[i].phoneNumbers[0].number;
-		//console.log(data[i].phoneNumbers[0].number);
-
 		if (data[i].imageAvailable == true) {
 			newContactOS.imageUri = data[i].image.uri;
 		}
 		else {
 			newContactOS.imageUri = 'https://www.clipartwiki.com/clipimg/detail/149-1490051_computer-icons-user-profile-male-my-profile-icon.png';
 		}
-		//newContactOS.image = data[i].images[0].image;
-		//console.log(data[i].images[0].image);
-
 		contacts.push(newContactOS);
 		newContactOS = {};
 	}
